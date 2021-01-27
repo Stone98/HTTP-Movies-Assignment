@@ -59,10 +59,39 @@ body {
   right: 25px;
   border: 1px solid grey;
   padding: 5px 10px;
-  background-color: lightseagreen;
+  background-color: white;
 }
+
+.edit-button {
+  position: absolute;
+  top: 100px;
+  right: 25px;
+  border: 1px solid grey;
+  padding: 5px 10px;
+  background-color: white;
+}
+
+.delete-button {
+  position: absolute;
+  top: 175px;
+  right: 25px;
+  border: 1px solid grey;
+  padding: 5px 10px;
+  background-color: white;
+}
+
 .save-button:hover {
   background-color: green;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: blue;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: red;
   color: white;
 }
 
@@ -74,4 +103,22 @@ body {
 .movie-warning {
   color: red;
   text-align: center;
+}
+
+.edit-container {
+  margin: 0 auto;
+  width: 300px;
+}
+
+input {
+  background-color: #fff;
+  font-size: 21px;
+  height: 50px;
+  width: 300px;
+  padding: 0 8px;
+  color: #1c5d76;
+}
+
+.form-button {
+  margin: 10px 120px;
 }
