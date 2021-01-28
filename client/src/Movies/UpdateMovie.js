@@ -16,7 +16,7 @@ const UpdateMovie = props => {
     const { push } = useHistory();
     const { id } = useParams();
 
-    useEffect(() => {
+    const getMovies = () => {
         axios
             .get(`http://localhost:5000/api/movies/${id}`)
             .then((res) => {
@@ -25,6 +25,9 @@ const UpdateMovie = props => {
             .catch((err) => {
                 console.log(err);
             })
+    }
+    useEffect(() => {
+        getMovies();
     }, [])
 
     const changeHandler = e => {
@@ -41,7 +44,7 @@ const UpdateMovie = props => {
         axios
             .put(`http://localhost:5000/api/movies/${id}`, movie)
             .then((res) => {
-                props.setMovieList(res.data);
+                props.getMovieList();
                 push('/');
             })
             .catch((err) => {

@@ -28,9 +28,8 @@ function Movie(props) {
     axios
       .delete(`http://localhost:5000/api/movies/${id}`)
       .then((res) => {
-        console.log(res);
-        props.setMovieList(res.data);
-        push(`/movies`)
+        props.getMovieList();
+        push(`/`)
       })
       .catch((err) => {
         console.log(err);
