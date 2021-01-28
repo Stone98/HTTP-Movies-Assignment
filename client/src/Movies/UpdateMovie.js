@@ -5,7 +5,8 @@ import axios from "axios";
 const initialMovie = {
     title: '',
     director: '',
-    metascore: ''
+    metascore: '',
+    stars: []
 };
 
 
@@ -13,23 +14,22 @@ const UpdateMovie = props => {
     const [movie, setMovie] = useState(initialMovie);
 
     const { push } = useHistory();
-    const id = props.match.params.id;
+    const { id } = useParams();
 
-    // useEffect(() => {
-    //     axios
-    //         .get(`http://localhost:5000/api/movies/${id}`)
-    //         .then((res) => {
-    //             setMovie(res.data);
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         })
-    // }, [])
+    useEffect(() => {
+        axios
+            .get(`http://localhost:5000/api/movies/${id}`)
+            .then((res) => {
+                setMovie(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [])
 
     const changeHandler = e => {
         e.persist();
         let value = e.target.value;
-        console.log(e.target);
         setMovie({
             ...movie,
             [e.target.name]: value
@@ -41,7 +41,8 @@ const UpdateMovie = props => {
         axios
             .put(`http://localhost:5000/api/movies/${id}`, movie)
             .then((res) => {
-                console.log(res.data);
+                props.setMovieList(res.data);
+                push('/');
             })
             .catch((err) => {
                 console.log(err);
@@ -79,6 +80,20 @@ const UpdateMovie = props => {
                 />
                 <div />
 
+                {
+                    movie.stars.map((star) => {
+                        return (
+                            <input
+                                key={star}
+                                type="text"
+                                name="stars"
+                                onChange={changeHandler}
+                                placeholder="Stars"
+                                value={star}
+                            />
+                        )
+                    })
+                }
                 <button className="form-button">Update</button>
             </form>
         </div>

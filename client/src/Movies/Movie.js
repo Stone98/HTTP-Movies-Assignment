@@ -30,7 +30,7 @@ function Movie(props) {
       .then((res) => {
         console.log(res);
         props.setMovieList(res.data);
-        push(`/`)
+        push(`/movies`)
       })
       .catch((err) => {
         console.log(err);
