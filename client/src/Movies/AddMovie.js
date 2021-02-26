@@ -9,9 +9,9 @@ const initialMovieForm = {
     stars: []
 };
 
-const UpdateMovie = props => {
+const AddMovie = props => {
     const [movie, setMovie] = useState(initialMovieForm);
-
+    const [star, setStar] = useState('');
     const { push } = useHistory();
 
     const changeHandler = e => {
@@ -23,13 +23,25 @@ const UpdateMovie = props => {
         })
     }
 
+    const handleStarChange = (e) => {
+        setStar(e.target.value)
+    }
+
+    const handleAddStar = (e) => {
+        e.preventDefault();
+        setMovie({
+            ...movie,
+            stars: [...movie.stars, star]
+        });
+        setStar('');
+    }
+
     const handleSubmit = e => {
         e.preventDefault();
         axios
             .post(`http://localhost:5000/api/movies`, movie)
             .then((res) => {
-                console.log(res);
-                props.getMovieList();
+                props.setMovieList(res.data)
                 push('/');
             })
             .catch((err) => {
@@ -68,10 +80,18 @@ const UpdateMovie = props => {
                 <input
                     type="text"
                     name="stars"
-                    onChange={changeHandler}
+                    onChange={handleStarChange}
                     placeholder="Stars"
-                    value={movie.stars}
+                    value={star}
                 />
+                <button onClick={handleAddStar}>Add Star</button>
+                <ul>
+                    {
+                        movie.stars.map(star => {
+                            return (<li key={star} >{star}</li>);
+                        })
+                    }
+                </ul>
                 <div />
                 <button className="form-button">Add Movie</button>
             </form>
@@ -79,4 +99,4 @@ const UpdateMovie = props => {
     )
 }
 
-export default UpdateMovie;
+export default AddMovie;
